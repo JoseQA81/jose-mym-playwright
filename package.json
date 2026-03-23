@@ -1,0 +1,25 @@
+{
+  "name": "jose-mym-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ai": "bun scripts/mcp-builder.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoseQA81/jose-mym-playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JoseQA81/jose-mym-playwright/issues"
+  },
+  "homepage": "https://github.com/JoseQA81/jose-mym-playwright#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0"
+  }
+}

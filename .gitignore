@@ -1,0 +1,17 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# MCPs
+# Local Environment
+.env
+.env.local
+
+# MCP Local & Generated Configs
+.gemini/settings.catalog.json
+.gemini/settings.json
