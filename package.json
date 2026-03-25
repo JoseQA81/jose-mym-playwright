@@ -20,6 +20,7 @@
   "homepage": "https://github.com/JoseQA81/jose-mym-playwright#readme",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@types/node": "^25.5.0"
+    "@types/node": "^25.5.0",
+    "dotenv": "^17.3.1"
   }
 }
