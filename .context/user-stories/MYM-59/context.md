@@ -61,3 +61,9 @@ Configurar assertions específicos para asegurar que estos fallos no regresen:
 *   **Realtime Sockets (MYM-96):** No testear actualización automática del widget (requiere F5 actual).
 *   **Ghost Effect (TC6):** Mensajes entrantes concurrentes (complejidad alta de inyección).
 *   **Inbox Link:** Navegación trivial fuera del alcance prioritario.
+
+### 7. Notas prácticas actuales
+* De momento, el data setup se realizará manualmente con cuentas de prueba en staging.
+* Mentor de pruebas: `joseqa81@gmail.com`
+* Mentee de pruebas: `jose-student@hotmail.com`
+* Primer objetivo de automatización en este repo: validar TC1 del widget "Recent Messages".
