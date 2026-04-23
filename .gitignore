@@ -15,3 +15,8 @@ node_modules/
 # MCP Local & Generated Configs
 .gemini/settings.catalog.json
 .gemini/settings.json
+.backups/
+
+.prompts/
+context-engineering.md
+templates/
