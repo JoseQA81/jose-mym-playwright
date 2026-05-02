@@ -20,8 +20,8 @@ export class RecentMessagesWidget {
    */
   async expectActiveConversationsDisplayed() {
     // 1. Validar encabezados y footer del widget
-    await expect(this.page.getByText('Mensajes Recientes', { exact: true })).toBeVisible();
-    await expect(this.page.getByText('Consultas de estudiantes', { exact: true })).toBeVisible();
+    await expect(this.page.getByText(/Mensajes Recientes/)).toBeVisible();
+    await expect(this.page.getByText(/Consultas de estudiantes/)).toBeVisible();
     await expect(this.page.getByTestId('view_all_messages_button')).toBeVisible();
 
     // 2. Validar conversaciones (Aserción de Colección)

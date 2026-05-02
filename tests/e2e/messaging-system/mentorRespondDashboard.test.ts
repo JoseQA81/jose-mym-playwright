@@ -1,17 +1,23 @@
 // USER STORY: https://upexgalaxy65.atlassian.net/browse/MYM-59
+
 import { test } from '@playwright/test';
+import { config } from '@config/variables';
+import { LoginPage } from '@pages/LoginPage';
+import { DashboardPage } from '@pages/DashboardPage';
 
-test.describe('Mentor Respond Dashboard', () => {
+test.describe('MYM-59: Mentor Respond Dashboard', () => {
 
-    test.beforeEach(async ({ page }) => {
-        // Login as mentor
-        await page.goto('https://staging-upexmymentor.vercel.app/dashboard');
+    test('MYM-158: Validate display of message widget with active conversations', async ({ page }) => {
+        // Data precondition: mentor account has more than 5 active conversations in staging.
         
-    })
+        const loginPage = new LoginPage(page);
+        const dashboardPage = new DashboardPage(page);
 
-test('TC1 - Validar visualización de reviews', async ({ page }) => {
-
-
-    })
+        await loginPage.goto();
+        await loginPage.loginSuccessfully(config.mentor.email, config.mentor.password);
+        
+        await dashboardPage.expectLoaded();
+        await dashboardPage.recentMessages.expectActiveConversationsDisplayed();
+    });
 
 });
