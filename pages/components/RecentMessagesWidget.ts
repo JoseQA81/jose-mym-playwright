@@ -50,4 +50,31 @@ export class RecentMessagesWidget {
       await expect(avatarImg).toHaveAttribute('alt', /\S+/);
     }
   }
+
+  /**
+   * Método de validación del empty state del widget.
+   * 
+   * Precondición:
+   * - EMPTY_MENTOR_EMAIL debe pertenecer a un mentor verificado sin conversaciones activas.
+   * 
+   * Limitación:
+   * - El texto del empty state no tiene data-testid estable, por lo que dependemos del texto visible.
+   */
+  async expectEmptyStateDisplayed() {
+    // Validar título del widget
+    await expect(this.page.getByText(/Mensajes Recientes/)).toBeVisible();
+    
+    // Validar subtítulo
+    await expect(this.page.getByText(/Consultas de estudiantes/)).toBeVisible();
+    
+    // Validar que no hay conversaciones
+    const conversationItems = this.page.locator('[data-testid^="widget_conversation_"]');
+    await expect(conversationItems).toHaveCount(0);
+    
+    // Validar texto del empty state
+    await expect(this.page.getByText(/No tienes mensajes aún\. Completa tu perfil/)).toBeVisible();
+    
+    // Validar botón view_all_messages_button visible
+    await expect(this.page.getByTestId('view_all_messages_button')).toBeVisible();
+  }
 }

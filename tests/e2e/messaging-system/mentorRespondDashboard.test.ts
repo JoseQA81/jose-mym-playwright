@@ -20,4 +20,16 @@ test.describe('MYM-59: Mentor Respond Dashboard', () => {
         await dashboardPage.recentMessages.expectActiveConversationsDisplayed();
     });
 
+    test('MYM-159: Validate empty status of widget when mentor has no conversations', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+        const dashboardPage = new DashboardPage(page);
+
+        // Data precondition: empty mentor account is verified and has no active conversations in staging.
+        await loginPage.goto();
+        await loginPage.loginSuccessfully(config.emptyMentor.email, config.emptyMentor.password);
+
+        await dashboardPage.expectLoaded();
+        await dashboardPage.recentMessages.expectEmptyStateDisplayed();
+    });
+
 });
