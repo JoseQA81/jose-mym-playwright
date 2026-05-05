@@ -77,4 +77,10 @@ export class RecentMessagesWidget {
     // Validar botón view_all_messages_button visible
     await expect(this.page.getByTestId('view_all_messages_button')).toBeVisible();
   }
+
+  async openFirstConversationFromWidget() {
+    const firstItem = this.page.locator('[data-testid^="widget_conversation_"]').first();
+    await expect(firstItem).toBeVisible();
+    await firstItem.click();
+  }
 }
