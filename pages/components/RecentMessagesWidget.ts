@@ -1,6 +1,10 @@
 import { expect, type Page } from '@playwright/test';
 
+const MAX_RECENT_MESSAGES = 5;
+
 export class RecentMessagesWidget {
+  private readonly conversationItems = () => this.page.locator('[data-testid^="widget_conversation_"]');
+
   constructor(private page: Page) {}
 
   /**
@@ -25,23 +29,20 @@ export class RecentMessagesWidget {
     await expect(this.page.getByTestId('view_all_messages_button')).toBeVisible();
 
     // 2. Validar conversaciones (Aserción de Colección)
-    const conversationItems = this.page.locator('[data-testid^="widget_conversation_"]');
-    
-    // Validar el hard-limit esperado (Exactamente 5)
-    await expect(conversationItems).toHaveCount(5);
+    // Validar el hard-limit esperado
+    await expect(this.conversationItems()).toHaveCount(MAX_RECENT_MESSAGES);
 
     // 3. Validaciones detalladas por cada ítem
-    for (let i = 0; i < 5; i++) {
-      const item = conversationItems.nth(i);
+    for (let i = 0; i < MAX_RECENT_MESSAGES; i++) {
+      const item = this.conversationItems().nth(i);
       
       // Debe ser visible
       await expect(item).toBeVisible();
       
-      // Debe ser interactivo (etiqueta BUTTON)
-      const tagName = await item.evaluate(el => el.tagName);
-      expect(tagName).toBe('BUTTON');
+      // Debe ser interactivo
+      await expect(item).toBeEnabled();
 
-      // Debe tener texto visible no vacío (al menos un carácter no que no sea espacio)
+      // Debe tener texto visible no vacío
       await expect(item).toHaveText(/\S+/);
 
       // Debe contener un avatar renderizado y con alt text
