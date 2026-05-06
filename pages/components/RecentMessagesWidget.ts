@@ -69,8 +69,7 @@ export class RecentMessagesWidget {
     await expect(this.page.getByText(/Consultas de estudiantes/)).toBeVisible();
     
     // Validar que no hay conversaciones
-    const conversationItems = this.page.locator('[data-testid^="widget_conversation_"]');
-    await expect(conversationItems).toHaveCount(0);
+    await expect(this.conversationItems()).toHaveCount(0);
     
     // Validar texto del empty state
     await expect(this.page.getByText(/No tienes mensajes aún\. Completa tu perfil/)).toBeVisible();
