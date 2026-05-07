@@ -3,9 +3,9 @@ import { expect, type Page } from '@playwright/test';
 export class QuickReplyModal {
   private readonly modal = () => this.page.getByTestId('quick_reply_modal');
   private readonly participantName = () => this.modal().getByTestId('participant_name');
-  private readonly avatarImg = () => this.modal().locator('img').first();
-  private readonly replyTextarea = () => this.modal().locator('textarea');
-  private readonly profileLink = () => this.modal().locator('a[title="Ver perfil completo"][href^="/students/"]').first();
+  private readonly avatarImg = () => this.modal().getByRole('img').first();
+  private readonly replyTextarea = () => this.modal().getByTestId('reply_textarea');
+  private readonly profileLink = () => this.modal().getByRole('link', { name: /Ver perfil completo/i });
 
   constructor(private page: Page) {}
 
