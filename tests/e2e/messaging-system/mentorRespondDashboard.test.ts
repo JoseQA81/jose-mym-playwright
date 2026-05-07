@@ -4,7 +4,6 @@ import { test } from '@playwright/test';
 import { config } from '@config/variables';
 import { LoginPage } from '@pages/LoginPage';
 import { DashboardPage } from '@pages/DashboardPage';
-import { QuickReplyModal } from '@pages/components/QuickReplyModal';
 
 test.describe('MYM-59: Mentor Respond Dashboard', () => {
 
@@ -37,7 +36,6 @@ test.describe('MYM-59: Mentor Respond Dashboard', () => {
         // Data precondition: mentor account has active conversations in staging.
         const loginPage = new LoginPage(page);
         const dashboardPage = new DashboardPage(page);
-        const quickReplyModal = new QuickReplyModal(page);
 
         await loginPage.goto();
         await loginPage.loginSuccessfully(config.mentor.email, config.mentor.password);
@@ -45,8 +43,8 @@ test.describe('MYM-59: Mentor Respond Dashboard', () => {
         await dashboardPage.expectLoaded();
         await dashboardPage.recentMessages.openFirstConversationFromWidget();
 
-        await quickReplyModal.expectModalDisplayed();
-        await quickReplyModal.navigateToMenteeProfile();
+        await dashboardPage.quickReplyModal.expectModalDisplayed();
+        await dashboardPage.quickReplyModal.navigateToMenteeProfile();
     });
 
 });
