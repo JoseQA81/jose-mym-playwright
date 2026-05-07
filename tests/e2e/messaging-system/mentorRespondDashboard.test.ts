@@ -32,4 +32,19 @@ test.describe('MYM-59: Mentor Respond Dashboard', () => {
         await dashboardPage.recentMessages.expectEmptyStateDisplayed();
     });
 
+    test('MYM-160: Validate viewing of the entire conversation by clicking on the widget', async ({ page }) => {
+        // Data precondition: mentor account has active conversations in staging.
+        const loginPage = new LoginPage(page);
+        const dashboardPage = new DashboardPage(page);
+
+        await loginPage.goto();
+        await loginPage.loginSuccessfully(config.mentor.email, config.mentor.password);
+
+        await dashboardPage.expectLoaded();
+        await dashboardPage.recentMessages.openFirstConversationFromWidget();
+
+        await dashboardPage.quickReplyModal.expectModalDisplayed();
+        await dashboardPage.quickReplyModal.navigateToMenteeProfile();
+    });
+
 });
