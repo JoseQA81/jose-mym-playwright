@@ -17,4 +17,8 @@ export const config = {
     email: requiredEnv('MENTOR_EMAIL'),
     password: requiredEnv('MENTOR_PASSWORD'),
   },
+  emptyMentor: {
+    email: requiredEnv('EMPTY_MENTOR_EMAIL'),
+    password: requiredEnv('EMPTY_MENTOR_PASSWORD'),
+  },
 } as const;
