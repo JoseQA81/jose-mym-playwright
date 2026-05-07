@@ -4,6 +4,14 @@ const MAX_RECENT_MESSAGES = 5;
 
 export class RecentMessagesWidget {
   private readonly conversationItems = () => this.page.locator('[data-testid^="widget_conversation_"]');
+  private readonly widgetTitle = () =>
+    this.page
+      .getByRole('heading', { name: /Mensajes Recientes/i })
+      .or(this.page.getByText(/Mensajes Recientes/i))
+      .first();
+  private readonly widgetSubtitle = () => this.page.getByText(/Consultas de estudiantes/i);
+  private readonly viewAllButton = () => this.page.getByTestId('view_all_messages_button');
+  private readonly emptyStateText = () => this.page.getByText(/No tienes mensajes aún\. Completa tu perfil/i);
 
   constructor(private page: Page) {}
 
@@ -24,9 +32,9 @@ export class RecentMessagesWidget {
    */
   async expectActiveConversationsDisplayed() {
     // 1. Validar encabezados y footer del widget
-    await expect(this.page.getByText(/Mensajes Recientes/)).toBeVisible();
-    await expect(this.page.getByText(/Consultas de estudiantes/)).toBeVisible();
-    await expect(this.page.getByTestId('view_all_messages_button')).toBeVisible();
+    await expect(this.widgetTitle()).toBeVisible();
+    await expect(this.widgetSubtitle()).toBeVisible();
+    await expect(this.viewAllButton()).toBeVisible();
 
     // 2. Validar conversaciones (Aserción de Colección)
     // Validar el hard-limit esperado
@@ -63,19 +71,19 @@ export class RecentMessagesWidget {
    */
   async expectEmptyStateDisplayed() {
     // Validar título del widget
-    await expect(this.page.getByText(/Mensajes Recientes/)).toBeVisible();
+    await expect(this.widgetTitle()).toBeVisible();
     
     // Validar subtítulo
-    await expect(this.page.getByText(/Consultas de estudiantes/)).toBeVisible();
+    await expect(this.widgetSubtitle()).toBeVisible();
     
     // Validar que no hay conversaciones
     await expect(this.conversationItems()).toHaveCount(0);
     
     // Validar texto del empty state
-    await expect(this.page.getByText(/No tienes mensajes aún\. Completa tu perfil/)).toBeVisible();
+    await expect(this.emptyStateText()).toBeVisible();
     
     // Validar botón view_all_messages_button visible
-    await expect(this.page.getByTestId('view_all_messages_button')).toBeVisible();
+    await expect(this.viewAllButton()).toBeVisible();
   }
 
   async openFirstConversationFromWidget() {
