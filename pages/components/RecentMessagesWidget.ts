@@ -79,7 +79,7 @@ export class RecentMessagesWidget {
   }
 
   async openFirstConversationFromWidget() {
-    const firstItem = this.page.locator('[data-testid^="widget_conversation_"]').first();
+    const firstItem = this.conversationItems().first();
     await expect(firstItem).toBeVisible();
     await firstItem.click();
   }

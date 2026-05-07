@@ -1,34 +1,31 @@
-import { expect, type Page, type Locator } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 
 export class QuickReplyModal {
-  private readonly modal: Locator;
+  private readonly modal = () => this.page.getByTestId('quick_reply_modal');
+  private readonly participantName = () => this.modal().getByTestId('participant_name');
+  private readonly avatarImg = () => this.modal().locator('img').first();
+  private readonly replyTextarea = () => this.modal().locator('textarea');
+  private readonly profileLink = () => this.modal().locator('a[title="Ver perfil completo"][href^="/students/"]').first();
 
-  constructor(private page: Page) {
-    this.modal = page.getByTestId('quick_reply_modal');
-  }
+  constructor(private page: Page) {}
 
   async expectModalDisplayed() {
-    await expect(this.modal).toBeVisible();
+    await expect(this.modal()).toBeVisible();
 
-    const participantName = this.modal.getByTestId('participant_name');
-    await expect(participantName).toBeVisible();
-    await expect(participantName).toHaveText(/\S+/);
+    await expect(this.participantName()).toBeVisible();
+    await expect(this.participantName()).toHaveText(/\S+/);
 
-    const avatarImg = this.modal.locator('img').first();
-    await expect(avatarImg).toBeVisible();
+    await expect(this.avatarImg()).toBeVisible();
 
-    const textarea = this.modal.locator('textarea');
-    await expect(textarea).toBeVisible();
+    await expect(this.replyTextarea()).toBeVisible();
   }
 
   async navigateToMenteeProfile() {
-    const profileLink = this.modal.locator('a[title="Ver perfil completo"][href^="/students/"]').first();
-    
-    await expect(profileLink).toBeVisible();
+    await expect(this.profileLink()).toBeVisible();
     // Validar que el href tiene exactamente el patrón esperado (/students/ seguido de un UUID o similar)
-    await expect(profileLink).toHaveAttribute('href', /\/students\/[a-f0-9-]+/);
+    await expect(this.profileLink()).toHaveAttribute('href', /\/students\/[a-f0-9-]+/);
     
-    await profileLink.click();
+    await this.profileLink().click();
 
     // Validar que la URL de Playwright cambió exitosamente al destino
     await expect(this.page).toHaveURL(/.*\/students\/[a-f0-9-]+/);
