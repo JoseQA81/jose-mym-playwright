@@ -21,4 +21,8 @@ export const config = {
     email: requiredEnv('EMPTY_MENTOR_EMAIL'),
     password: requiredEnv('EMPTY_MENTOR_PASSWORD'),
   },
+  replyMentor: {
+    email: requiredEnv('REPLY_MENTOR_EMAIL'),
+    password: requiredEnv('REPLY_MENTOR_PASSWORD'),
+  },
 } as const;
