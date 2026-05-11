@@ -6,6 +6,9 @@ export class QuickReplyModal {
   private readonly avatarImg = () => this.modal().getByRole('img').first();
   private readonly replyTextarea = () => this.modal().getByTestId('reply_textarea');
   private readonly profileLink = () => this.modal().getByRole('link', { name: /Ver perfil completo/i });
+  private readonly sendReplyButton = () => this.modal().getByTestId('send_reply_button');
+  private readonly messagesContainer = () => this.modal().getByTestId('messages_container');
+  private readonly messageBubbles = () => this.messagesContainer().locator('[data-testid^="message_bubble_"]');
 
   constructor(private page: Page) {}
 
@@ -18,6 +21,20 @@ export class QuickReplyModal {
     await expect(this.avatarImg()).toBeVisible();
 
     await expect(this.replyTextarea()).toBeVisible();
+  }
+
+  async typeReply(message: string) {
+    await this.replyTextarea().fill(message);
+  }
+
+  async sendReply() {
+    await this.sendReplyButton().click();
+  }
+
+  async expectMessageInHistory(message: string) {
+    await expect(this.replyTextarea()).toBeEmpty();
+    const sentMessage = this.messageBubbles().filter({ hasText: message });
+    await expect(sentMessage).toBeVisible();
   }
 
   async navigateToMenteeProfile() {

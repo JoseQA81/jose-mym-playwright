@@ -47,4 +47,22 @@ test.describe('MYM-59: Mentor Respond Dashboard', () => {
         await dashboardPage.quickReplyModal.navigateToMenteeProfile();
     });
 
+    test('MYM-161: Validate that the response sent is displayed correctly in the modal thread', async ({ page }) => {
+        // Data precondition: reply mentor account has an active conversation in staging.
+        const loginPage = new LoginPage(page);
+        const dashboardPage = new DashboardPage(page);
+        const uniqueMessage = `Automated reply MYM-161 - ${Date.now()}`;
+
+        await loginPage.goto();
+        await loginPage.loginSuccessfully(config.replyMentor.email, config.replyMentor.password);
+
+        await dashboardPage.expectLoaded();
+        await dashboardPage.recentMessages.openFirstConversationFromWidget();
+
+        await dashboardPage.quickReplyModal.expectModalDisplayed();
+        await dashboardPage.quickReplyModal.typeReply(uniqueMessage);
+        await dashboardPage.quickReplyModal.sendReply();
+        await dashboardPage.quickReplyModal.expectMessageInHistory(uniqueMessage);
+    });
+
 });
