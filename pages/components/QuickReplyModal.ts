@@ -33,7 +33,7 @@ export class QuickReplyModal {
 
   async expectMessageInHistory(message: string) {
     await expect(this.replyTextarea()).toBeEmpty();
-    const sentMessage = this.messageBubbles().filter({ hasText: message });
+    const sentMessage = this.messageBubbles().filter({ hasText: message }).first();
     await expect(sentMessage).toBeVisible();
   }
 
