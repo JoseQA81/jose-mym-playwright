@@ -56,7 +56,7 @@ docs/exercises/
 - 🥟 Bun
 - 🧪 GitHub Actions
 - 🧩 Jira / Xray
-- 🤖 AI-assisted workflow with Gemini CLI / Warp
+- 🤖 AI-assisted QA workflow with Gemini CLI, Warp, and ChatGPT / GPT-5.5 Thinking
 
 ## ▶️ Run Checks
 
