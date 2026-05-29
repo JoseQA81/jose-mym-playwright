@@ -31,6 +31,27 @@ Manual coverage documented in Jira/Xray:
 - **MYM-162 / TC5**: “View All Messages” navigation.
 - **MYM-163 / TC6**: Draft preservation / Ghost Effect, with realtime observation related to MYM-96.
 
+✅ MYM-59 is considered completed from the QA/Automation perspective: automated TC passed, manual TC passed, and the User Story is marked as QA APPROVED in Jira/Xray.
+
+### 🧪 API Automation Foundation
+
+Initial API automation has started with Playwright `APIRequestContext`.
+
+Current API coverage:
+
+- ✅ Supabase Auth smoke test using invalid login credentials.
+- ✅ Validates API availability and expected authentication rejection.
+- ✅ Does not use real user credentials.
+- ✅ Does not modify staging data.
+- ✅ Runs in GitHub Actions using Supabase environment variables from repository secrets.
+
+Related files:
+
+- `tests/api/auth/auth.api.test.ts`
+- `docs/setup/mcp-openapi.md`
+- `.context/guidelines/TAE/openapi-integration.md`
+
+
 ## 🧱 Architecture
 
 The current UI automation follows a minimal KATA / Page Object approach:
@@ -83,9 +104,12 @@ They are intentionally stored as documentation and are not part of the executabl
 ### 🔒 Notes
 Sensitive files such as `.env`, local AI settings, tokens, and credentials must never be committed. Environment variables are required for the automated tests and are injected through local `.env` or GitHub Actions secrets.
 
-### 🚧 Next Steps
-Upcoming work may include:
-- API automation with Playwright.
-- Integration testing using `APIRequestContext`.
-- Lightweight API clients / fixtures inspired by the MYM QA automation source repository.
-- Further KATA evolution without over-engineering the current structure.
+## 🌱 Future Improvements
+
+MYM-59 is considered completed from the QA/Automation perspective. The following items are optional improvements for future learning and repository evolution:
+
+* Evolve the initial API automation foundation with additional Playwright API smoke tests.
+* Introduce lightweight API clients only when repeated request logic appears.
+* Gradually adapt KATA-style API architecture inspired by `mym-qa-automation-source`, without over-engineering the current repository.
+* Explore OpenAPI-based type generation once the API testing structure becomes stable.
+* Continue TypeScript, CI, and tooling hardening in small, isolated PRs.
