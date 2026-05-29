@@ -26,6 +26,8 @@ jobs:
         EMPTY_MENTOR_PASSWORD: ${{ secrets.EMPTY_MENTOR_PASSWORD }}
         REPLY_MENTOR_EMAIL: ${{ secrets.REPLY_MENTOR_EMAIL }}
         REPLY_MENTOR_PASSWORD: ${{ secrets.REPLY_MENTOR_PASSWORD }}
+        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
